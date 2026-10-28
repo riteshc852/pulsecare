@@ -1,0 +1,67 @@
+/* PulseCare Clinic Management Portal - Modern Medical UI */
+
+:root {
+    --pc-primary: #0284c7;
+    --pc-primary-dark: #0369a1;
+    --pc-accent: #0ea5e9;
+    --pc-bg: #f8fafc;
+    --pc-card-bg: #ffffff;
+    --pc-text-dark: #0f172a;
+    --pc-text-muted: #64748b;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--pc-bg);
+    color: var(--pc-text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+}
+
+.doctor-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.doctor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -10px rgba(2, 132, 199, 0.15) !important;
+}
+
+.card {
+    border: 1px solid #e2e8f0;
+}
+
+.table th {
+    font-weight: 600;
+    color: var(--pc-text-muted);
+}
+
+.badge {
+    letter-spacing: 0.02em;
+    font-weight: 600;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #appointmentSlip, #appointmentSlip * {
+        visibility: visible;
+    }
+    #appointmentSlip {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+    .btn, footer, header {
+        display: none !important;
+    }
+}

@@ -1,0 +1,110 @@
+@model PulseCareClinic.Models.Appointment
+
+@{
+    ViewData["Title"] = "Appointment Summary #" + Model.Id;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow rounded-4 overflow-hidden mb-4" id="appointmentSlip">
+            <div class="card-header bg-primary text-white p-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="fw-bold mb-0"><i class="bi bi-heart-pulse-fill me-2 text-danger"></i> PulseCare Clinic</h3>
+                    <small class="text-white-50">Official Consultation Voucher &amp; Appointment Slip</small>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-light text-primary fs-6 px-3 py-2">Token #@Model.Id</span>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <div class="row mb-4 g-3 border-bottom pb-4">
+                    <div class="col-sm-6">
+                        <h6 class="text-muted text-uppercase small fw-bold">Patient Details</h6>
+                        <h5 class="fw-bold text-dark mb-1">@Model.Patient?.FullName</h5>
+                        <p class="text-muted mb-0 small">
+                            <i class="bi bi-telephone me-1"></i> @Model.Patient?.PhoneNumber<br />
+                            <i class="bi bi-envelope me-1"></i> @Model.Patient?.Email<br />
+                            <i class="bi bi-droplet-half me-1"></i> Blood Group: @(Model.Patient?.BloodGroup ?? "N/A")
+                        </p>
+                    </div>
+                    <div class="col-sm-6 text-sm-end">
+                        <h6 class="text-muted text-uppercase small fw-bold">Doctor &amp; Clinic</h6>
+                        <h5 class="fw-bold text-primary mb-1">@Model.Doctor?.FullName</h5>
+                        <p class="text-muted mb-0 small">
+                            Department: <strong>@Model.Doctor?.Department?.Name</strong><br />
+                            Specialization: @Model.Doctor?.Specialization<br />
+                            Consultation Fee: <strong class="text-success">₹@Model.Doctor?.ConsultationFee</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mb-4 g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Scheduled Date</small>
+                            <strong class="fs-6 text-dark">@Model.AppointmentDate.ToString("dddd, dd MMM yyyy")</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Time Slot</small>
+                            <strong class="fs-6 text-dark">@Model.TimeSlot</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Current Status</small>
+                            @switch (Model.Status)
+                            {
+                                case PulseCareClinic.Models.AppointmentStatus.Pending:
+                                    <span class="badge bg-warning text-dark fs-6">Pending</span>
+                                    break;
+                                case PulseCareClinic.Models.AppointmentStatus.Confirmed:
+                                    <span class="badge bg-success fs-6">Confirmed</span>
+                                    break;
+                                case PulseCareClinic.Models.AppointmentStatus.Completed:
+                                    <span class="badge bg-secondary fs-6">Completed</span>
+                                    break;
+                                case PulseCareClinic.Models.AppointmentStatus.Cancelled:
+                                    <span class="badge bg-danger fs-6">Cancelled</span>
+                                    break;
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h6 class="fw-bold text-muted small text-uppercase">Reason for Consultation</h6>
+                    <div class="p-3 bg-light rounded-3 text-dark">
+                        @Model.ReasonForVisit
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Notes))
+                {
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-muted small text-uppercase">Doctor Prescription &amp; Clinical Notes</h6>
+                        <div class="p-3 bg-light rounded-3 text-dark border-start border-4 border-info">
+                            @Model.Notes
+                        </div>
+                    </div>
+                }
+
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                    <div>
+                        <a asp-action="Index" class="btn btn-outline-secondary me-2">
+                            <i class="bi bi-arrow-left me-1"></i> Back to List
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning">
+                            <i class="bi bi-pencil me-1"></i> Edit
+                        </a>
+                    </div>
+                    <button onclick="window.print()" class="btn btn-outline-primary">
+                        <i class="bi bi-printer me-1"></i> Print Slip
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

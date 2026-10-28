@@ -1,0 +1,88 @@
+@model PulseCareClinic.Models.Appointment
+
+@{
+    ViewData["Title"] = "Update Appointment #" + Model.Id;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-warning bg-opacity-10 py-3 rounded-top-4 border-bottom border-warning">
+                <h4 class="fw-bold mb-0 text-dark"><i class="bi bi-pencil-square me-2"></i> Update Appointment #@Model.Id</h4>
+                <small class="text-muted">Modify status, reschedule date, or add physician medical notes.</small>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="PatientId" />
+                    <input type="hidden" asp-for="CreatedAt" />
+
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <!-- Patient Info Summary (Read Only) -->
+                    <div class="alert alert-light border rounded-3 p-3 mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong class="d-block text-muted small">PATIENT NAME</strong>
+                                <span class="fs-6 fw-bold">@Model.Patient?.FullName</span>
+                            </div>
+                            <div class="col-md-6">
+                                <strong class="d-block text-muted small">CONTACT</strong>
+                                <span>@Model.Patient?.PhoneNumber | @Model.Patient?.Email</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label asp-for="DoctorId" class="form-label fw-semibold">Assigned Doctor</label>
+                            <select asp-for="DoctorId" asp-items="ViewBag.Doctors" class="form-select"></select>
+                            <span asp-validation-for="DoctorId" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Status" class="form-label fw-semibold">Appointment Status</label>
+                            <select asp-for="Status" asp-items="Html.GetEnumSelectList<PulseCareClinic.Models.AppointmentStatus>()" class="form-select"></select>
+                            <span asp-validation-for="Status" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="AppointmentDate" class="form-label fw-semibold">Date</label>
+                            <input asp-for="AppointmentDate" type="date" class="form-control" />
+                            <span asp-validation-for="AppointmentDate" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="TimeSlot" class="form-label fw-semibold">Time Slot</label>
+                            <input asp-for="TimeSlot" class="form-control" />
+                            <span asp-validation-for="TimeSlot" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="ReasonForVisit" class="form-label fw-semibold">Reason for Visit</label>
+                            <input asp-for="ReasonForVisit" class="form-control" />
+                            <span asp-validation-for="ReasonForVisit" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="Notes" class="form-label fw-semibold">Physician Prescription &amp; Clinical Notes</label>
+                            <textarea asp-for="Notes" rows="3" class="form-control" placeholder="Add diagnosis, prescribed drugs, or follow-up instructions..."></textarea>
+                            <span asp-validation-for="Notes" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-warning px-4 fw-semibold shadow-sm">
+                            <i class="bi bi-save me-1"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+}

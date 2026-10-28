@@ -1,0 +1,46 @@
+## Visual Studio & .NET Build Artifacts
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio & VS Code User Settings
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.sln.docstates
+
+## JetBrains Rider / ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+## SQLite temporary files (wal & shm)
+*.db-wal
+*.db-shm
+
+## Publish output
+[Pp]ublish/
+*.Publish.xml
+*.pubxml
+
+## Package artifacts
+*.nupkg
+*.snupkg
+
+## Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## Windows & macOS system files
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+.DS_Store
+.AppleDouble
